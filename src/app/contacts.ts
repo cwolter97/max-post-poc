@@ -1,0 +1,31 @@
+import { ContactEvent } from "./types/contact";
+
+export const contacts: Array<ContactEvent> = [
+  {
+    Type: "CallContactEvent",
+    ContactID: "1384238947298",
+    Status: "Active",
+    OriginalState: "True",
+    CallType: "Dialer",
+    DNIS: "8002709208",
+    ANI: "8002709208",
+    Skill: "123456",
+    IsInbound: "False",
+    StartTimeUTC: "now",
+    LastStateChangeTimeUTC: "now",
+    ScreenPopUrl: "",
+    DisconnectCode: "",
+    IsLogging: "True",
+    Timeout: "20",
+    AllowDispositions: "False",
+    Label: "",
+    IsLinked: "False",
+    TimeZones: "UTC",
+    FinalState: "False",
+    OtherInformation: "",
+    BlendingToSkillName: "",
+    type: "",
+    IISHost: "",
+    VCHost: "",
+  },
+];
