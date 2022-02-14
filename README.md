@@ -9,6 +9,9 @@ In it's current state, this app will update to you show you:
 - Any active or previously handled contact in a session and it's status
 - All ContactEvent details related to that contact
 
+![Minified List View](images/Untitled.png)
+![Contact Details](images/image.png)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files. To work properly, you will need `http://127.0.0.1:4200` created as a Custom Workspace URL in your NICE CXone business unit. Then launch MAX to load your page.
