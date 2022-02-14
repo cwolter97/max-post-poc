@@ -1,11 +1,15 @@
 import { Injectable } from "@angular/core";
 import { ContactEvent } from "../types/contact";
 
+interface ContactList extends Array<ContactEvent> {
+  update?(c: ContactEvent): void;
+}
 @Injectable({
   providedIn: "root",
 })
+
 export class ContactService {
-  contacts: Array<ContactEvent> = [];
+  contacts: ContactList = [];
 
   opener: Window;
 
@@ -16,6 +20,9 @@ export class ContactService {
     window.addEventListener("message", this.listener);
 
     this.opener.postMessage(
+      /*
+        Subscribe to MAX events
+      */
       {
         issuer: "CWTestApp",
         messageType: "RegisterForClientEvents",
@@ -25,6 +32,9 @@ export class ContactService {
     );
 
     Object.defineProperty(this.contacts, "update", {
+      /*
+        Implement custom update method for @ContactList
+      */
       value: (c: ContactEvent) => {
         for (let contact of this.contacts) {
           if (contact.ContactID === c.ContactID) {
@@ -37,6 +47,9 @@ export class ContactService {
     });
   }
   ngOnDestroy() {
+    /*
+      Unsubscribe from events
+    */
     this.opener.postMessage(
       {
         issuer: "CWTestApp",
@@ -55,7 +68,6 @@ export class ContactService {
       if (events.hasOwnProperty(eventIndex)) {
         let event = events[eventIndex];
         console.log(event);
-        // @ts-ignore
         this.contacts.update(event);
       }
     }
@@ -66,7 +78,7 @@ export class ContactService {
       console.log(`==== Received ${event.data.events.length} events =====`);
 
       let events: any = event.data.events;
-      let contactEvents: any[] = [];
+      let contactEvents: ContactList = [];
       for (let e of events) {
         if (e.hasOwnProperty("Type") && e.Type.includes("Contact")) {
           contactEvents.push(e);
