@@ -4,6 +4,10 @@ import { ContactEvent } from "../types/contact";
 interface ContactList extends Array<ContactEvent> {
   update?(c: ContactEvent): void;
 }
+
+
+const APP_NAME = "CWTestApp"
+
 @Injectable({
   providedIn: "root",
 })
@@ -24,7 +28,7 @@ export class ContactService {
         Subscribe to MAX events
       */
       {
-        issuer: "CWTestApp",
+        issuer: APP_NAME,
         messageType: "RegisterForClientEvents",
         subscriptionTypes: subscriptionTypes,
       },
@@ -52,7 +56,7 @@ export class ContactService {
     */
     this.opener.postMessage(
       {
-        issuer: "CWTestApp",
+        issuer: APP_NAME,
         messageType: "UnegisterFromClientEvents",
       },
       "*",
@@ -63,7 +67,7 @@ export class ContactService {
     return this.contacts;
   }
 
-  private doSomething = (events: any) => {
+  private processContactEvents = (events: ContactList) => {
     for (let eventIndex in events) {
       if (events.hasOwnProperty(eventIndex)) {
         let event = events[eventIndex];
@@ -79,6 +83,7 @@ export class ContactService {
 
       let events: any = event.data.events;
       let contactEvents: ContactList = [];
+
       for (let e of events) {
         if (e.hasOwnProperty("Type") && e.Type.includes("Contact")) {
           contactEvents.push(e);
@@ -87,7 +92,7 @@ export class ContactService {
 
       console.log(`==== Received ${contactEvents.length} contact events =====`);
 
-      this.doSomething(contactEvents);
+      this.processContactEvents(contactEvents);
     }
   };
 }
