@@ -5,6 +5,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Purpose
 This proof-of-concept shows how you can build a webapp that will run embedded along with NICE CXone's MAX Agent Console. 
 
+Refer to the [Contact Service](src/app/contacts/contact.service.ts) for adding the listener and tracking [Contact Events](src/app/types/contact.ts).
+
 In it's current state, this app will update to you show you:
 - Any active or previously handled contact in a session and it's status
 - All ContactEvent details related to that contact
