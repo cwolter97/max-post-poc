@@ -19,7 +19,7 @@ export class ContactService {
 
   constructor() {
     this.opener = window.opener || window.parent;
-    const subscriptionTypes = ["all"];
+    const subscriptionTypes = ["all"]; // should be ["contacts"] but MAX has a bug that will cause the agent to freeze when checking event types to send
 
     window.addEventListener("message", this.listener);
 
